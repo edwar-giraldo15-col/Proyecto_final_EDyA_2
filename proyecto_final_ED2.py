@@ -43,6 +43,7 @@ class ListaEnlazada:
         return elementos
 
 # 2. COLA / QUEUE
+class ColaPedidos:
     def __init__(self):
         self.items = []
 
