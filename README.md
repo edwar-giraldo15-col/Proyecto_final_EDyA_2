@@ -1,6 +1,6 @@
 # Proyecto_final_EDyA_2
 
-Proyecto subido a un servidor (RENDER) : [Proyecto Final - EDyA 2](https://proyecto-final-edya-2.onrender.com)
+Proyecto subido a un servidor (RENDER) : (https://proyecto-final-edya-2.onrender.com)
 
 Proyecto final de la clase estructura de datos 2
 Plataforma de Gestión de Envíos y Logística
@@ -39,4 +39,4 @@ Para lograr un despliegue exitoso en la nube con Render, fue necesario configura
 1. **Gestión de Dependencias (`requirements.txt`)**: Se añadió este archivo para asegurar que el servidor descargue e instale automáticamente las librerías necesarias de Python (como Flask) al momento de compilar.
 2. **Configuración de Puerto Dinámico e Interfaz (`app.py`)**: Se adaptó el bloque de ejecución del servidor para leer la variable de entorno del puerto asignada por Render (`os.environ.get("PORT")`) y enlazar el servidor a todas las direcciones (`0.0.0.0`), permitiendo el acceso público a la aplicación.
 
-🌐 **Enlace de la aplicación en vivo:** [Proyecto Final - EDyA 2](https://proyecto-final-edya-2.onrender.com)
+🌐 **Enlace de la aplicación en vivo:** (https://proyecto-final-edya-2.onrender.com)
