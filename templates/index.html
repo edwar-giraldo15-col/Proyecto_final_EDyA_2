@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Estructuras de Datos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background-color: #f0f2f5; color: #333; }
+        
+        header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 25px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        header h1 { font-size: 26px; font-weight: 600; margin-bottom: 5px; }
+        header p { font-size: 14px; opacity: 0.9; }
+
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; padding: 30px; max-width: 1300px; margin: 0 auto; }
+
+        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; border-top: 5px solid #2a5298; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+
+        .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .card-header i { font-size: 20px; color: #1f4587; background: #eef2f9; padding: 10px; border-radius: 8px; }
+        .card-header h3 { font-size: 18px; color: #162f5d; }
+
+        .card-desc { font-size: 12px; color: #666; margin-bottom: 15px; background: #f8f9fa; padding: 8px 12px; border-left: 3px solid #2a5298; border-radius: 4px; }
+
+        /* Botones */
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+        input { padding: 10px; border: 1px solid #dddcdc; border-radius: 6px; font-size: 13px; outline: none; }
+        input:focus { border-color: #122e5e; }
+
+        .btn-group { display: flex; gap: 8px; }
+        button { flex: 1; padding: 10px; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; color: white; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn-primary { background: #2a5298; }
+        .btn-primary:hover { background: #1e3c72; }
+        .btn-danger { background: #e74c3c; }
+        .btn-danger:hover { background: #c0392b; }
+        .btn-success { background: #2ecc71; }
+        .btn-success:hover { background: #27ae60; }
+
+        /* Visualizador de Contenido */
+        .output-box { background: #f8f9fa; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 12px; min-height: 100px; max-height: 180px; overflow-y: auto; font-size: 13px; }
+        
+        /* Listas formateadas */
+        .item-badge { background: #e2e8f0; padding: 6px 10px; border-radius: 6px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+        .item-badge span { font-weight: 600; color: #1e293b; }
+        .priority-badge { background: #fef3c7; color: #92400e; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fa-solid fa-layer-group"></i> Plataforma de Estructuras de Datos</h1>
+    
+    </header>
+
+    <div class="grid-container">
+
+        <!-- 1. LISTA ENLAZADA -->
+        <div class="card">
+            <div>
+                <div class="card-header">
+                    <i class="fa-solid fa-list-check"></i>
+                    <h3>👤 Registro de Clientes</h3>
+                </div>
+                <div class="card-desc">Secuencia de nodos enlazados. Usado para el registro continuo de clientes.</div>
+                <div class="form-group">
+                    <input type="text" id="clienteNombre" placeholder="Nombre completo del cliente">
+                </div>
+                <button class="btn-primary" onclick="agregarCliente()"><i class="fa-solid fa-plus"></i> Registrar Cliente</button>
+            </div>
+            <div style="margin-top: 15px;">
+                <label style="font-size: 12px; font-weight: 600; color: #64748b;">REGISTROS:</label>
+                <div class="output-box" id="resClientes">Cargando...</div>
+            </div>
+        </div>
+
+        <!-- 2. COLA (QUEUE) -->
+        <div class="card">
+            <div>
+                <div class="card-header">
+                    <i class="fa-solid fa-people-line"></i>
+                    <h3>📦 Gestión de Pedidos</h3>
+                </div>
+                <div class="card-desc">Primero en entrar, primero en salir. Usado para filas de atención.</div>
+                <div class="form-group">
+                    <input type="number" id="pedidoId" placeholder="ID del Pedido (ej: 101)">
+                    <input type="text" id="pedidoDesc" placeholder="Descripción del pedido">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-primary" onclick="agregarCola()"><i class="fa-solid fa-arrow-down-to-line"></i> Encolar</button>
+                    <button class="btn-danger" onclick="despacharCola()"><i class="fa-solid fa-check"></i> Despachar</button>
+                </div>
+            </div>
+            <div style="margin-top: 15px;">
+                <label style="font-size: 12px; font-weight: 600; color: #64748b;">EN FILA DE ESPERA:</label>
+                <div class="output-box" id="resCola">Cargando...</div>
+            </div>
+        </div>
+
+       <!-- 3. ÁRBOL BINARIO DE BÚSQUEDA -->
+        <div class="card">
+            <div>
+                <div class="card-header">
+                    <i class="fa-solid fa-sitemap"></i>
+                    <h3>🔍 Búsqueda de Pedidos</h3>
+                </div>
+                <div class="card-desc">Búsqueda rápida indexada por ID.</div>
+                <div class="form-group">
+                    <input type="number" id="buscarId" placeholder="Ingrese ID de pedido a buscar">
+                </div>
+                <button class="btn-primary" onclick="buscarArbol()"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+            </div>
+            <div style="margin-top: 15px;">
+                <label style="font-size: 12px; font-weight: 600; color: #212832;">RESULTADO DE BÚSQUEDA:</label>
+                <div class="output-box" id="resArbol">...</div>
+            </div>
+        </div>
+
+        <!-- 4. MIN-HEAP -->
+        <div class="card">
+            <div>
+                <div class="card-header">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <h3>🚨 Control de Urgencias</h3>
+                </div>
+                <div class="card-desc">El elemento de menor valor numérico tiene la máxima urgencia.</div>
+                <div class="form-group">
+                    <input type="number" id="heapPrio" placeholder="Nivel Prioridad (1 = Máxima)">
+                    <input type="text" id="heapDesc" placeholder="Descripción de la emergencia">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-primary" onclick="agregarHeap()"><i class="fa-solid fa-plus"></i> Agregar</button>
+                    <button class="btn-success" onclick="atenderHeap()"><i class="fa-solid fa-bolt"></i> Atender Urgente</button>
+                </div>
+            </div>
+            <div style="margin-top: 15px;">
+                <label style="font-size: 12px; font-weight: 600; color: #212832;">URGENCIAS ORDENADAS:</label>
+                <div class="output-box" id="resHeap">Cargando...</div>
+            </div>
+        </div>
+
+        <!-- 5. GRAFO -->
+        <div class="card" style="grid-column: span 1;">
+            <div>
+                <div class="card-header">
+                    <i class="fa-solid fa-route"></i>
+                    <h3>🗺️ Mapa de Conexiones</h3>
+                </div>
+                <div class="card-desc">Red de nodos (sucursales) y aristas (distancias).</div>
+            </div>
+            <div style="margin-top: 15px;">
+                <label style="font-size: 12px; font-weight: 600; color: #212832;">MAPA DE CONEXIONES:</label>
+                <div class="output-box" id="resGrafo">Cargando...</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function actualizarTodo() {
+            // 1. Clientes (Lista Enlazada)
+        fetch('/api/clientes').then(res => res.json()).then(data => {
+            let html = '';
+            if (data.clientes.length === 0) {
+                html = '<small style="color:#999">No hay clientes registrados</small>';
+            } else {
+                data.clientes.forEach(c => {
+                    html += `
+                        <div class="item-badge" style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>👤 ${c}</span>
+                            <button onclick="eliminarCliente('${c}')" style="background: #e74c3c; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>`;
+                });
+            }
+            document.getElementById('resClientes').innerHTML = html;
+        });
+
+
+            // 2. Cola
+            fetch('/api/cola').then(res => res.json()).then(data => {
+                let html = '';
+                if(data.cola.length === 0) html = '<small style="color:#999">Cola vacía</small>';
+                data.cola.forEach((p, idx) => {
+                    html += `<div class="item-badge"><span>📦 #${p.id} - ${p.descripcion}</span> <small style="color:#666">Turno #${idx+1}</small></div>`;
+                });
+                document.getElementById('resCola').innerHTML = html;
+            });
+
+            // 4. Heap
+            fetch('/api/heap').then(res => res.json()).then(data => {
+                let html = '';
+                if(data.heap.length === 0) html = '<small style="color:#999">Sin urgencias pendientes</small>';
+                data.heap.forEach(h => {
+                    html += `<div class="item-badge"><span>⚠️ ${h.descripcion}</span> <span class="priority-badge">Prioridad ${h.prioridad}</span></div>`;
+                });
+                document.getElementById('resHeap').innerHTML = html;
+            });
+
+            // 5. Grafo
+            fetch('/api/grafo').then(res => res.json()).then(data => {
+                let html = '';
+                for (let origen in data.mapa) {
+                    let conexiones = data.mapa[origen].map(c => `${c.destino} (${c.distancia}km)`).join(', ');
+                    html += `<div class="item-badge"><span>📍 <b>${origen}</b> ➔ [${conexiones}]</span></div>`;
+                }
+                document.getElementById('resGrafo').innerHTML = html;
+            });
+        }
+
+        function agregarCliente() {
+            let nombre = document.getElementById('clienteNombre').value;
+            if(!nombre) return alert('Escribe un nombre');
+            fetch('/api/clientes', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({nombre: nombre})
+            }).then(() => {
+                document.getElementById('clienteNombre').value = '';
+                actualizarTodo();
+            });
+        }
+            
+        function eliminarCliente(nombre) {
+            if (!confirm(`¿Estás seguro de eliminar a ${nombre}?`)) return;
+
+            fetch('/api/clientes', {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ nombre: nombre })
+            })
+            .then(res => res.json())
+            .then(data => {
+                actualizarTodo();
+            })
+            .catch(err => console.error("Error:", err));
+        }
+
+        function agregarCola() {
+            let id = document.getElementById('pedidoId').value;
+            let pedido = document.getElementById('pedidoDesc').value;
+            if(!id || !pedido) return alert('Llena ambos campos');
+            fetch('/api/cola', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({id: id, pedido: pedido})
+            }).then(() => {
+                document.getElementById('pedidoId').value = '';
+                document.getElementById('pedidoDesc').value = '';
+                actualizarTodo();
+            });
+        }
+
+        function despacharCola() {
+            fetch('/api/cola', {method: 'DELETE'}).then(() => actualizarTodo());
+        }
+
+        function buscarArbol() {
+            let id = document.getElementById('buscarId').value;
+            if(!id) return alert('Ingresa un ID');
+            fetch(`/api/arbol/buscar/${id}`).then(res => res.json()).then(data => {
+                if(data.encontrado) {
+                    document.getElementById('resArbol').innerHTML = `<div class="item-badge" style="background:#d1fae5; color:#065f46"><span>✅ Encontrado: ${data.datos.descripcion}</span></div>`;
+                } else {
+                    document.getElementById('resArbol').innerHTML = `<div class="item-badge" style="background:#fee2e2; color:#991b1b"><span>❌ No existe el ID en el registro</span></div>`;
+                }
+            });
+        }
+
+        function agregarHeap() {
+            let prioridad = document.getElementById('heapPrio').value;
+            let descripcion = document.getElementById('heapDesc').value;
+            if(!prioridad || !descripcion) return alert('Llena ambos campos');
+            fetch('/api/heap', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({prioridad: parseInt(prioridad), descripcion: descripcion})
+            }).then(() => {
+                document.getElementById('heapPrio').value = '';
+                document.getElementById('heapDesc').value = '';
+                actualizarTodo();
+            });
+        }
+
+        function atenderHeap() {
+            fetch('/api/heap', {method: 'DELETE'}).then(() => actualizarTodo());
+        }
+
+        actualizarTodo();
+    </script>
+</body>
+</html>
